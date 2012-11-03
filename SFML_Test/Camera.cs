@@ -59,7 +59,10 @@ namespace SFML_Test
             if (XStick == false)
             {
                 _pos.X = plyPos.X + moveOffset.X;
+               
             }
+            if (_pos.X < 350)
+                _pos.X = 350;
         }
 
         public Matrix GetTransformation(GraphicsDevice graphicsDevice)

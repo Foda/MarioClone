@@ -32,10 +32,12 @@ namespace SFML_Test
         public Sprite slopeSprite;
         public Sprite mushSprite;
         public Sprite itemBlockSprite;
+        public Sprite bubbleSprite;
 
         Color blockColor;
 
         public List<Block> blockTest = new List<Block>();
+        public Item_Bubble bubble = new Item_Bubble();
 
         public NPC_Manager npcMan = new NPC_Manager();
         public Item_Manager itemMan = new Item_Manager();
@@ -109,6 +111,8 @@ namespace SFML_Test
 
             blockSprite = new Sprite();
             blockSprite.Source = new Rectangle(0, 0, 16, 16);
+
+            npcMan.currentLevel = this;
         }
 
         public void TestGround(ref Player ply)
@@ -278,13 +282,18 @@ namespace SFML_Test
 
             tileData[30, 20].isSolid = true;
             tileData[30, 20].isVisible = false;
+
+            bubble.mSpriteTexture = bubbleSprite.mSpriteTexture;
+            bubble.Source = new Rectangle(0, 0, 32, 32);
+            bubble.Position = new Vector2(300, 400);
         }
 
         public void Update(GameTime time)
         {
             npcMan.Update(time, tileData, blockTest);
             itemMan.Update(tileData);
-            blockTest[0].Update();
+            blockTest[0].Update(time);
+            bubble.Update(time);
         }
 
         public void Draw(SpriteBatch spritebatch)
@@ -339,6 +348,7 @@ namespace SFML_Test
 
             npcMan.Draw(spritebatch);
             blockTest[0].Draw(spritebatch);
+            bubble.Draw(spritebatch);
         }
     }
 }

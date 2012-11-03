@@ -34,5 +34,12 @@ namespace SFML_Test
         int levelLength = 4; //x640
         int levelVert = 2;   //x480
         string levelMusic = "";
+
+        private TileHeader[,] tileData;
+
+        public void Init()
+        {
+            tileData = new TileHeader[(levelLength * 640) / 16, (levelVert * 640) / 16];
+        }
     }
 }

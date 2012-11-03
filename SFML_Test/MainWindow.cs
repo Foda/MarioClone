@@ -110,6 +110,10 @@ namespace SFML_Test
             level.mushSprite.mSpriteTexture = Content.Load<Texture2D>(System.IO.Path.GetFullPath("Assets\\mushroom.png"));
             level.mushSprite.Source = new Rectangle(0, 0, 16, 16);
 
+            level.bubbleSprite = new Sprite();
+            level.bubbleSprite.mSpriteTexture = Content.Load<Texture2D>(System.IO.Path.GetFullPath("Assets\\respawn_bubble.png"));
+            level.bubbleSprite.Source = new Rectangle(0, 0, 32, 32);
+
             backTrees = new Sprite();
             backTrees.mSpriteTexture = Content.Load<Texture2D>(System.IO.Path.GetFullPath("Assets\\back_trees.png"));
             backTrees.Source = new Rectangle(0, 0, 512, 170);
@@ -177,6 +181,10 @@ namespace SFML_Test
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if (Keyboard.GetState().IsKeyDown(Keys.I))
+            {
+                level.bubble.Pop();
+            }
           
             level.TestCeiling(ref ply);
             level.WallTest(ref ply);

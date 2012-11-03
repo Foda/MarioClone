@@ -66,6 +66,8 @@
     <Compile Include="Colorizer.cs" />
     <Compile Include="HSL.cs" />
     <Compile Include="Item_Base.cs" />
+    <Compile Include="Item_Bubble.cs" />
+    <Compile Include="Item_Coin.cs" />
     <Compile Include="Item_Manager.cs" />
     <Compile Include="Item_Mushroom.cs" />
     <Compile Include="Level.cs" />
@@ -129,6 +131,9 @@
     </Content>
     <Content Include="Assets\notmario.png" />
     <Content Include="Assets\particle_hit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\respawn_bubble.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\turtle.png">

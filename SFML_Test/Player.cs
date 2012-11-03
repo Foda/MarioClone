@@ -94,6 +94,8 @@ namespace SFML_Test
         float durBlink = 0;
         float timerInvLife = 0;
 
+        public bool isInBubble = false;
+
         public void LoadContent(ContentManager content)
         {
             sprHit.LoadContent(content, System.IO.Path.GetFullPath("Assets\\particle_hit.png"));
@@ -108,6 +110,9 @@ namespace SFML_Test
         /// </summary>
         public void Update(GameTime time, Camera cam)
         {
+            if (isInBubble == true)
+                return;
+
             if (isGrowing == false && isShrinking == false)
             {
                 vPosLast = vPosition;
@@ -359,6 +364,11 @@ namespace SFML_Test
             }
         }
 
+        public void MakeInvinvible()
+        {
+            isInvincible = true;
+        }
+
         void HandleXMovement()
         {
             if (airState == Phys_Const.AirState.GROUND)
@@ -526,6 +536,9 @@ namespace SFML_Test
 
         public void Input(KeyboardState keyboard)
         {
+            if (isInBubble == true)
+                return;
+
             if (isGrowing || isShrinking)
                 return;
 

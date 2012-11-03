@@ -29,6 +29,11 @@ namespace SFML_Test
         public BlockType blockType = BlockType.BRICK;
         private bool isHit = false;
 
+        //Animation
+        const float aniRunCycle = 135;
+        float aniTimer = 0;
+        int aniCurrFrame = 0;
+
         /// <summary>
         /// Get position
         /// </summary>
@@ -79,7 +84,7 @@ namespace SFML_Test
                         item.DeployItem();
                         isHit = true;
                         item.isVisible = true;
-                        Source = new Rectangle(16, 0, 16, 16);
+                        Source = new Rectangle(16*4, 0, 16, 16);
                     }
                     Position.Y -= moveOffset;
                     isMoveHit = true;
@@ -87,12 +92,10 @@ namespace SFML_Test
             }
         }
 
-        public void Update()
+        public void Update(GameTime time)
         {
             foreach (Item_Base item in itemContents)
-            {
                 item.Update();
-            }
 
             if (isMoveHit == true && moveOffset > 0)
             {
@@ -102,6 +105,22 @@ namespace SFML_Test
                     Position.Y += 1;
                     moveOffset--;
                     movetime = 0;
+                }
+            }
+
+            //Not hit, update animations
+            if (isHit == false)
+            {
+                aniTimer += time.ElapsedGameTime.Milliseconds;
+                if (aniTimer > aniRunCycle)
+                {
+                    aniTimer = 0;
+                    aniCurrFrame++;
+
+                    if (aniCurrFrame > 3)
+                        aniCurrFrame = 0;
+
+                    this.Source = new Rectangle(16*aniCurrFrame, 0, 16, 16);
                 }
             }
         }

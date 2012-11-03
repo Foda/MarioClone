@@ -10,6 +10,8 @@ namespace SFML_Test
 {
     class NPC_Manager
     {
+        public Level currentLevel;
+
         public List<NPC_Base> listNPC = new List<NPC_Base>();
 
         public void Update(GameTime time, Tile[,] tileData, List<Block> blocks)
@@ -132,7 +134,14 @@ namespace SFML_Test
                     ply.vVelocity.Y < 0) &&
                     npc.isDeadly == true)
                 {
-                    ply.Shrink();
+                    if (ply.isBig)
+                        ply.Shrink();
+                    else
+                    {
+                        //Isszzz Ded!
+                        ply.isInBubble = true;
+                        currentLevel.bubble.SetPlayer(ply);
+                    }
                 }
                 else
                 {
