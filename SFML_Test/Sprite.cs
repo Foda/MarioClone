@@ -14,7 +14,7 @@ namespace SFML_Test
         public Vector2 Position = new Vector2(0, 0);
 
         //Phys movement state
-        public Phys_Const.AirState airState = Phys_Const.AirState.AIR;
+        public ConstHelper.AirState airState = ConstHelper.AirState.AIR;
 
         //The texture object used when drawing the sprite
         public Texture2D mSpriteTexture;

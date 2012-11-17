@@ -136,16 +136,16 @@ namespace SFML_Test
 
             if (tileData[x1, y1].isSolid == true && tileData[x1, y1].isSlope == false)
             {
-                ply.airState = Phys_Const.AirState.GROUND;
+                ply.airState = ConstHelper.AirState.GROUND;
                 ply.isJumping = false;
             }
             else if (tileData[x2, y1].isSolid == true && tileData[x2, y1].isSlope == false)
             {
-                ply.airState = Phys_Const.AirState.GROUND;
+                ply.airState = ConstHelper.AirState.GROUND;
                 ply.isJumping = false;
             }
             else
-                ply.airState = Phys_Const.AirState.AIR;
+                ply.airState = ConstHelper.AirState.AIR;
             
             //DEBUG
             //tileData[x3, y2].isLit = true;
@@ -170,21 +170,21 @@ namespace SFML_Test
                             ply.vVelocity.Y = 0;
                             ply.vPosition.Y = (testY * 16) - i;
 
-                            ply.airState = Phys_Const.AirState.GROUND;
+                            ply.airState = ConstHelper.AirState.GROUND;
                             ply.isJumping = false;
                             break;
                         }
                     }
                 }
             }
-            else if (ply.airState == Phys_Const.AirState.GROUND)
+            else if (ply.airState == ConstHelper.AirState.GROUND)
             {
                 if(ply.vVelocity.Y > 0)
                     ply.vVelocity.Y = 0;
                 ply.vPosition.Y = (y1 * 16) - ply.Height;
             }
             else
-                ply.airState = Phys_Const.AirState.AIR;
+                ply.airState = ConstHelper.AirState.AIR;
 
             //Test NPC collisions
             npcMan.DoCollisionPlayer(ply);
@@ -257,7 +257,7 @@ namespace SFML_Test
                 ply.vVelocity.Y < 0 &&
                 ply.vPosition.Y > blockTest[0].GetWorldPosition().Y + 16)
             {
-                blockTest[0].HandleCollision(Phys_Const.CollisionDir.DOWN, "player");
+                blockTest[0].HandleCollision(ConstHelper.CollisionDir.DOWN, "player");
             }
         }
 

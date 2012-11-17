@@ -19,6 +19,10 @@ namespace SFML_Test
         public Vector2 plyPos;
         public bool isLeft = true;
         public bool XStick = false;
+        public bool YStick = true;
+
+        private bool isPanning = false;
+        private int panDir = 0;
 
         public Vector2 moveOffset;
 
@@ -59,10 +63,51 @@ namespace SFML_Test
             if (XStick == false)
             {
                 _pos.X = plyPos.X + moveOffset.X;
-               
             }
+            if (YStick == false)
+            {
+                _pos.Y = plyPos.Y + moveOffset.Y;
+            }
+           
+            if (isPanning)
+            {
+                if (isLeft)
+                {
+                    moveOffset.X -= 1;
+                    panDir++;
+                }
+                else
+                {
+                    moveOffset.X += 1;
+                    panDir--;
+                }
+
+                if (panDir == 0)
+                    isPanning = false;
+            }
+
             if (_pos.X < 350)
                 _pos.X = 350;
+        }
+
+        public void PanLeft()
+        {
+            if (isLeft == false)
+            {
+                isLeft = true;
+                isPanning = true;
+                panDir = -32;
+            }
+        }
+
+        public void PanRight()
+        {
+            if (isLeft == true)
+            {
+                isLeft = false;
+                isPanning = true;
+                panDir = 32;
+            }
         }
 
         public Matrix GetTransformation(GraphicsDevice graphicsDevice)

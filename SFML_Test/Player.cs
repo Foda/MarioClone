@@ -63,7 +63,7 @@ namespace SFML_Test
 
         //Airmove states
         public MovementState moveState = MovementState.STANDING;
-        public Phys_Const.AirState airState = Phys_Const.AirState.AIR;
+        public ConstHelper.AirState airState = ConstHelper.AirState.AIR;
         public bool isJumping = false;
 
         //Calculated camera pos for this player
@@ -131,14 +131,6 @@ namespace SFML_Test
                 vPosition.X += vVelocity.X;
                 vPosition.Y += vVelocity.Y;
 
-                if (tHeld != null)
-                {
-                    if (isLeft)
-                        tHeld.Position = new Vector2(vPosition.X - 10, Position.Y + Height - 16);
-                    else
-                        tHeld.Position = new Vector2(vPosition.X + 10, Position.Y + Height - 16);
-                }
-
                 //Update camera
                 //Moving left, but camera thinks I'm still moving right
                 if (isLeft == true && cam.isLeft == false)
@@ -148,7 +140,7 @@ namespace SFML_Test
                     cam.XStick = true;
                     if (camXChange >= 16)
                     {
-                        cam.isLeft = true;
+                        cam.PanLeft();
                         camXChange = 0;
                         cam.XStick = false;
                     }
@@ -159,7 +151,7 @@ namespace SFML_Test
                     cam.XStick = true;
                     if (camXChange >= 16)
                     {
-                        cam.isLeft = false;
+                        cam.PanRight();
                         camXChange = 0;
                         cam.XStick = false;
                     }
@@ -178,6 +170,14 @@ namespace SFML_Test
                 }
 
                 this.Position = vPosition;
+            }
+
+            if (tHeld != null)
+            {
+                if (isLeft)
+                    tHeld.Position = new Vector2(vPosition.X - 10, Position.Y + Height - 16);
+                else
+                    tHeld.Position = new Vector2(vPosition.X + 10, Position.Y + Height - 16);
             }
 
             //Handle animation
@@ -238,12 +238,12 @@ namespace SFML_Test
                     }
                 }
 
-                if (vVelocity.X == 0 && airState == Phys_Const.AirState.GROUND && isBig == true)
+                if (vVelocity.X == 0 && airState == ConstHelper.AirState.GROUND && isBig == true)
                 {
                     this.Source = new Rectangle(0, 16, 16, 32);
                 }
 
-                if (vVelocity.X != 0 && airState == Phys_Const.AirState.GROUND)
+                if (vVelocity.X != 0 && airState == ConstHelper.AirState.GROUND)
                 {
                     float aniSpeed = vVelocity.X;
                     if (vVelocity.X < 0)
@@ -290,11 +290,11 @@ namespace SFML_Test
                     this.FlipHorz = false;
                 }
 
-                if (isLeft == false && airState == Phys_Const.AirState.AIR)
+                if (isLeft == false && airState == ConstHelper.AirState.AIR)
                 {
                     this.FlipHorz = false;
                 }
-                else if (isLeft == true && airState == Phys_Const.AirState.AIR)
+                else if (isLeft == true && airState == ConstHelper.AirState.AIR)
                 {
                     this.FlipHorz = true;
                 }
@@ -306,7 +306,7 @@ namespace SFML_Test
                     else
                         this.Source = new Rectangle(0, 16, 16, 32);
                 }
-                if (moveState == MovementState.SKID && airState == Phys_Const.AirState.GROUND)
+                if (moveState == MovementState.SKID && airState == ConstHelper.AirState.GROUND)
                 {
                     if (isBig == false)
                         this.Source = new Rectangle(32, 0, 16, 16);
@@ -314,7 +314,7 @@ namespace SFML_Test
                         this.Source = new Rectangle(64, 16, 16, 32);
                 }
 
-                if (airState == Phys_Const.AirState.AIR)
+                if (airState == ConstHelper.AirState.AIR)
                 {
                     if (isBig == false)
                         this.Source = new Rectangle(48, 0, 16, 16);
@@ -371,7 +371,7 @@ namespace SFML_Test
 
         void HandleXMovement()
         {
-            if (airState == Phys_Const.AirState.GROUND)
+            if (airState == ConstHelper.AirState.GROUND)
             {
                 if (moveState == MovementState.STANDING && vVelocity.X != 0)
                 {
@@ -399,7 +399,7 @@ namespace SFML_Test
                         vVelocity.X += speedXAccel * 4;
                 }
             }
-            else if (airState == Phys_Const.AirState.AIR)
+            else if (airState == ConstHelper.AirState.AIR)
             {
                 if (moveState == MovementState.SKID && vVelocity.X != 0)
                 {
@@ -471,7 +471,7 @@ namespace SFML_Test
         }
         private void CheckJump()
         {
-            if (airState == Phys_Const.AirState.GROUND)
+            if (airState == ConstHelper.AirState.GROUND)
             {
                 DoJump();
                 AudioManager.PlaySfx("jump");

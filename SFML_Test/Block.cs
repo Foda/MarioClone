@@ -72,10 +72,10 @@ namespace SFML_Test
         /// </summary>
         /// <param name="CollDir">Direction of the collision</param>
         /// <param name="meta">Extra data as to what hit me</param>
-        public void HandleCollision(Phys_Const.CollisionDir CollDir, String meta)
+        public void HandleCollision(ConstHelper.CollisionDir CollDir, String meta)
         {
             //Player hit me from below
-            if ((CollDir == Phys_Const.CollisionDir.DOWN && meta == "player") || meta == "shell")
+            if ((CollDir == ConstHelper.CollisionDir.DOWN && meta == "player") || meta == "shell")
             {
                 if (blockType == BlockType.ITEM && isHit == false && itemContents != null)
                 {

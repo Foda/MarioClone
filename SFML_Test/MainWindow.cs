@@ -16,7 +16,6 @@ namespace SFML_Test
 {
     public class MainWindow : Game
     {
-
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -37,6 +36,8 @@ namespace SFML_Test
         Sprite backMts;
         Sprite backClouds;
         List<System.Drawing.Color> colorizer;
+
+        Effect crtEffect;
 
         public MainWindow()
             : base()
@@ -61,6 +62,7 @@ namespace SFML_Test
         {
             camera = new Camera();
             camera.Pos = new Vector2(320, 240);
+            camera.Zoom = 0.5f;
 
             base.Initialize();
         }
@@ -71,6 +73,10 @@ namespace SFML_Test
         /// </summary>
         protected override void LoadContent()
         {
+            crtEffect = Content.Load<Effect>(System.IO.Path.GetFullPath("Bend.fx"));
+
+            ConstHelper.content = this.Content;
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -148,19 +154,9 @@ namespace SFML_Test
             level.blockSprite.color = new Color(blockcolor.R, blockcolor.G, blockcolor.B);
             level.blockFrostingSprite.color = new Color(blockfrost.R, blockfrost.G, blockfrost.B);
 
-            //Test goomba
-            NPC_Goomba g = new NPC_Goomba();
-            g.Load(Content, "Assets\\goomba.png", 16, 16);
-            g.Position = new Vector2(16 * 33, 200);
-            g.Height = 16;
-
-            NPC_Turtle t = new NPC_Turtle();
-            t.Load(Content, "Assets\\turtle.png", 16, 26);
-            t.Position = new Vector2(16 * 30, 200);
-            t.Height = 26;
-
-            level.npcMan.listNPC.Add(g);
-            level.npcMan.listNPC.Add(t);
+            //Test NPCs
+            level.npcMan.CreateNPC(ConstHelper.NPCType.GOOMBA, new Vector2(16 * 33, 200), Vector2.Zero);
+            level.npcMan.CreateNPC(ConstHelper.NPCType.TURTLE, new Vector2(16 * 30, 200), Vector2.Zero);
 
             AudioManager.LoadContent(Content);
         }

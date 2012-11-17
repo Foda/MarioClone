@@ -11,6 +11,21 @@
     <AssemblyName>SFML_Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,6 +47,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>1</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Lidgren.Network.Windows, Version=2011.3.12.0, Culture=neutral, processorArchitecture=MSIL">
@@ -65,19 +84,20 @@
     <Compile Include="Camera.cs" />
     <Compile Include="Colorizer.cs" />
     <Compile Include="HSL.cs" />
-    <Compile Include="Item_Base.cs" />
-    <Compile Include="Item_Bubble.cs" />
-    <Compile Include="Item_Coin.cs" />
-    <Compile Include="Item_Manager.cs" />
-    <Compile Include="Item_Mushroom.cs" />
+    <Compile Include="Items\Item_Base.cs" />
+    <Compile Include="Items\Item_Bubble.cs" />
+    <Compile Include="Items\Item_Coin.cs" />
+    <Compile Include="Items\Item_Manager.cs" />
+    <Compile Include="Items\Item_Mushroom.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="LevelData.cs" />
     <Compile Include="MainWindow.cs" />
-    <Compile Include="NPC_Base.cs" />
-    <Compile Include="NPC_Goomba.cs" />
-    <Compile Include="NPC_Manager.cs" />
-    <Compile Include="NPC_Turtle.cs" />
-    <Compile Include="Phys_Const.cs" />
+    <Compile Include="NPC\NPC_Base.cs" />
+    <Compile Include="NPC\NPC_Goomba.cs" />
+    <Compile Include="NPC\NPC_LilTurtle.cs" />
+    <Compile Include="NPC\NPC_Manager.cs" />
+    <Compile Include="NPC\NPC_Turtle.cs" />
+    <Compile Include="ConstHelper.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,6 +108,12 @@
     <EmbeddedResource Include="Assets\arial.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Content Include="Assets\lilturtle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bend.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\blob.png">
@@ -163,6 +189,23 @@
     <Content Include="Sfx\stomp.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
